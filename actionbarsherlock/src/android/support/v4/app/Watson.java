@@ -3,6 +3,7 @@ package android.support.v4.app;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
 import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 
 /** I'm in ur package. Stealing ur variables. */
 public abstract class Watson extends FragmentActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener {
-    private static final boolean DEBUG = false;
     private static final String TAG = "Watson";
 
     /** Fragment interface for menu creation callback. */
@@ -85,13 +85,12 @@ public abstract class Watson extends FragmentActivity implements OnCreatePanelMe
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
-        if (DEBUG) Log.d(TAG, "[onCreatePanelMenu] featureId: " + featureId + ", menu: " + menu);
+        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[onCreatePanelMenu] featureId: " + featureId + ", menu: " + menu);
 
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             boolean show = onCreateOptionsMenu(menu);
             show |= dispatchCreateOptionsMenu(mFragments.mAdded, menu, getSupportMenuInflater());
             return show;
-
         }
         return false;
     }
@@ -127,7 +126,7 @@ public abstract class Watson extends FragmentActivity implements OnCreatePanelMe
 
     @Override
     public boolean onPreparePanel(int featureId, View view, Menu menu) {
-        if (DEBUG) Log.d(TAG, "[onPreparePanel] featureId: " + featureId + ", view: " + view + " menu: " + menu);
+        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[onPreparePanel] featureId: " + featureId + ", view: " + view + " menu: " + menu);
 
         if (featureId == Window.FEATURE_OPTIONS_PANEL && menu != null) {
             if (mOptionsMenuInvalidated) {
@@ -174,7 +173,7 @@ public abstract class Watson extends FragmentActivity implements OnCreatePanelMe
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if (DEBUG) Log.d(TAG, "[onMenuItemSelected] featureId: " + featureId + ", item: " + item);
+        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[onMenuItemSelected] featureId: " + featureId + ", item: " + item);
 
         return onOptionsItemSelected(item) || featureId == Window.FEATURE_OPTIONS_PANEL && dispatchOptionsItemSelected(mFragments.mAdded, item);
     }
